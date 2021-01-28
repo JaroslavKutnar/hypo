@@ -11,19 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Hypo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Hypo'),
@@ -34,8 +22,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
-  //Fields in a Widget subclass are always marked "final".
-
   final String title;
 
   @override
@@ -43,18 +29,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  int _selectedPage = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       Expanded(
         child: Container(
-          color: Colors.red,
+          color: Colors.white,
           alignment: Alignment.center,
         ),
       )
@@ -102,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       Expanded(
         child: Container(
-          color: Colors.red,
+          color: Colors.white,
           alignment: Alignment.center,
         ),
       )
@@ -111,16 +86,43 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Widget> getButtons() {
     return [
-      Container(
-        child: Image.asset("assets/images/hypo.png", fit: BoxFit.cover),
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            _selectedPage = 0;
+          });
+        },
+        child: Image.asset(
+          "assets/images/hypo.png",
+          color: (_selectedPage == 0) ? null : Colors.white,
+          colorBlendMode: BlendMode.saturation,
+        ),
         // padding: EdgeInsets.all(10.0),
       ),
-      Container(
-        child: Image.asset("assets/images/savings.png"),
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            _selectedPage = 1;
+          });
+        },
+        child: Image.asset(
+          "assets/images/savings.png",
+          color: (_selectedPage == 1) ? null : Colors.white,
+          colorBlendMode: BlendMode.saturation,
+        ),
         // padding: EdgeInsets.all(10.0)
       ),
-      Container(
-        child: Image.asset("assets/images/result.png"),
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            _selectedPage = 2;
+          });
+        },
+        child: Image.asset(
+          "assets/images/result.png",
+          color: (_selectedPage == 2) ? null : Colors.white,
+          colorBlendMode: BlendMode.saturation,
+        ),
         //padding: EdgeInsets.all(10.0)
       )
     ];
