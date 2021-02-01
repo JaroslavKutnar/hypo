@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hypo/widgets/HypoPage.dart';
+import 'package:hypo/widgets/ResultPage.dart';
+import 'package:hypo/widgets/SavingsPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -48,8 +52,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return Column(children: [
       AspectRatio(
         aspectRatio: 6,
-        child: Padding(
+        child: Container(
           padding: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(bottom: BorderSide(color: Colors.grey))),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: getButtons()),
@@ -59,6 +66,12 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Container(
           color: Colors.white,
           alignment: Alignment.center,
+          child: AnimatedSwitcher(
+              duration: Duration(milliseconds: 500),
+              child: Container(
+                key: UniqueKey(),
+                child: getPage(),
+              )),
         ),
       )
     ]);
@@ -68,8 +81,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return Row(children: [
       AspectRatio(
         aspectRatio: 1 / 6,
-        child: Padding(
+        child: Container(
           padding: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(right: BorderSide(color: Colors.grey))),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: getButtons() + [AspectRatio(aspectRatio: 1 / 2)]),
@@ -78,52 +94,69 @@ class _MyHomePageState extends State<MyHomePage> {
       Expanded(
         child: Container(
           color: Colors.white,
-          alignment: Alignment.center,
+          //alignment: Alignment.center,
+          child: AnimatedSwitcher(
+              duration: Duration(milliseconds: 500),
+              child: Container(
+                key: UniqueKey(),
+                child: getPage(),
+              )),
         ),
       )
     ]);
+  }
+
+  Widget getPage() {
+    switch (_selectedPage) {
+      case 1:
+        return SavingsPage();
+      case 2:
+        return ResultPage();
+      default:
+        return HypoPage();
+    }
   }
 
   List<Widget> getButtons() {
     return [
       GestureDetector(
         onTap: () {
-          setState(() {
-            _selectedPage = 0;
-          });
+          if (_selectedPage != 0)
+            setState(() {
+              _selectedPage = 0;
+            });
         },
         child: Image.asset(
           "assets/images/hypo.png",
           color: (_selectedPage == 0) ? null : Colors.white,
           colorBlendMode: BlendMode.saturation,
         ),
-        // padding: EdgeInsets.all(10.0),
       ),
       GestureDetector(
         onTap: () {
-          setState(() {
-            _selectedPage = 1;
-          });
+          if (_selectedPage != 1)
+            setState(() {
+              _selectedPage = 1;
+            });
         },
         child: Image.asset(
           "assets/images/savings.png",
           color: (_selectedPage == 1) ? null : Colors.white,
           colorBlendMode: BlendMode.saturation,
         ),
-        // padding: EdgeInsets.all(10.0)
       ),
       GestureDetector(
         onTap: () {
-          setState(() {
-            _selectedPage = 2;
-          });
+          if (_selectedPage != 2)
+            setState(() {
+              _selectedPage = 2;
+            });
         },
         child: Image.asset(
           "assets/images/result.png",
           color: (_selectedPage == 2) ? null : Colors.white,
           colorBlendMode: BlendMode.saturation,
         ),
-        //padding: EdgeInsets.all(10.0)
       )
     ];
   }
