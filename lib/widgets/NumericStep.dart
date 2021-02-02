@@ -6,8 +6,7 @@ class NumericStep extends StatefulWidget {
   final double maxValue;
   final double step;
   final int decimals;
-  final String suffix;
-
+  final String Function(double) suffix;
   final ValueChanged<double> onChanged;
 
   NumericStep({
@@ -18,7 +17,7 @@ class NumericStep extends StatefulWidget {
     this.onChanged,
     this.step = 1.0,
     this.decimals = 2,
-    this.suffix = "",
+    this.suffix,
   }) : super(key: key);
 
   @override
@@ -58,7 +57,10 @@ class _NumericStepState extends State<NumericStep> {
             },
           ),
           Text(
-            '${value.toStringAsFixed(widget.decimals)} ' + widget.suffix,
+            widget.suffix == null
+                ? '${value.toStringAsFixed(widget.decimals)} '
+                : '${value.toStringAsFixed(widget.decimals)} ' +
+                    widget.suffix(value),
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black87,

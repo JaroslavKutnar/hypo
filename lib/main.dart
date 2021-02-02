@@ -16,6 +16,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        textTheme: TextTheme(
+          headline1: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.black54),
+          bodyText1: TextStyle(fontSize: 16.0, color: Colors.black54),
+        ),
       ),
       home: MyHomePage(title: 'Hypo'),
     );
