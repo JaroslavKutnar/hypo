@@ -87,8 +87,7 @@ class _HypoPageState extends State<HypoPage> {
             maxValue: 35,
             step: 1,
             decimals: 0,
-            suffix: (double d) => "let";
-            },
+            suffix: (double d) => "let",
             onChanged: (value) {
               _years = value.round();
             },
